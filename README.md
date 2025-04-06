@@ -27,5 +27,5 @@ I wanted to make budgeting more insightful by directly showing consumers how the
 - **Backend**: Python + Flask
 - **Frontend**: HTML (basic for now)
 - **Database**: SQLite (per-user transaction storage)
-- **APIs**: Yahoo Finance via `yfinance` (for stock prices)
+- **APIs**: Yahoo Finance via `yfinance` (for stock prices) and (https://gist.github.com/leftmove/dd9d981c8c37983f61e423a45085e063) to get ticker symbols
 - **Hosting**: Render.com
