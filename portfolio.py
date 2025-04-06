@@ -35,4 +35,6 @@ class Portfolio:
                 self.current_value += m.current_value
 
         self.merchants = valid_merchants
+        self.total_spent = round(self.total_spent, 2)
+        self.current_value = round(self.current_value, 2)
         self.net_gain = round(self.current_value - self.total_spent, 2)

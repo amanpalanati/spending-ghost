@@ -32,4 +32,5 @@ class Merchant:
         
         self.transactions = valid_transactions
         self.total_shares = round(self.total_shares, 2)
+        self.current_value = round(self.current_value, 2)
         self.net_gain = round(self.current_value - self.total_spent, 2)
