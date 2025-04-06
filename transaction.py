@@ -7,12 +7,15 @@ import tzlocal
 
 class Transaction:
     def __init__(self, date: str, time: str, merchant: str, amount: float):
-        self.date = datetime.strptime(date + " " + time, "%Y-%m-%d %H:%M:%S")
+        try:
+            self.date = datetime.strptime(date + " " + time, "%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            self.date = datetime.now()
         self.merchant = merchant.title()  # e.g., "Starbucks"
         self.amount = amount
         self.stock_price = self.get_stock_price()
-        self.num_shares = self.amount / self.stock_price if self.stock_price != 0.0 else 0.0
-        self.current_value = (round(float(yf.Ticker(self.get_ticker(self.merchant)).info.get("regularMarketPrice")), 2) - self.stock_price) * self.num_shares + self.amount
+        self.num_shares = round(float(self.amount) / self.stock_price if self.stock_price != 0.0 else 0.0, 2)
+        self.current_value = round((round(float(yf.Ticker(self.get_ticker(self.merchant)).info.get("regularMarketPrice")), 2) - self.stock_price) * self.num_shares + self.amount, 2)
     
     def get_ticker(self, company_name):
         try:
@@ -56,4 +59,4 @@ class Transaction:
                 return market_open.astimezone(tzlocal.get_localzone())
     
     def update_transaction(self):
-        self.current_value = (round(float(yf.Ticker(self.get_ticker(self.merchant)).info.get("regularMarketPrice")), 2) - self.stock_price) * self.num_shares + self.amount
+        self.current_value = round((round(float(yf.Ticker(self.get_ticker(self.merchant)).info.get("regularMarketPrice")), 2) - self.stock_price) * self.num_shares + self.amount, 2)

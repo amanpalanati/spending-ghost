@@ -24,11 +24,11 @@ class Merchant:
         
         for txn in self.transactions:
             txn.update_transaction()
-            if txn.date > six_months_ago:
+            if txn.date > six_months_ago and txn.amount > 0:
                 valid_transactions.append(txn)
                 self.total_spent += txn.amount
                 self.total_shares += txn.num_shares
                 self.current_value += txn.current_value
         
         self.transactions = valid_transactions
-        self.net_gain = self.current_value - self.total_spent
+        self.net_gain = round(self.current_value - self.total_spent, 2)
