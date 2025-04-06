@@ -17,6 +17,23 @@ class Transaction:
         self.num_shares = round(float(self.amount) / self.stock_price if self.stock_price != 0.0 else 0.0, 2)
         self.current_value = round((round(float(yf.Ticker(self.get_ticker(self.merchant)).info.get("regularMarketPrice")), 2) - self.stock_price) * self.num_shares + self.amount, 2)
     
+    @classmethod
+    def from_db_row(cls, row):
+        # Construct a Transaction from a database row.
+        # Split the stored ISO datetime string into date and time parts.
+        dt = row["date_time"]
+        try:
+            date_part, time_part = dt.split("T")  # if ISO formatted: "2025-04-04T14:30:00"
+        except ValueError:
+            # Fallback if the format is "2025-04-04 14:30:00"
+            date_part, time_part = dt.split(" ")
+        txn = cls(date=date_part, time=time_part, merchant=row["merchant"], amount=row["amount"])
+        # Override the computed values with stored ones:
+        txn.stock_price = row["stock_price"]
+        txn.num_shares = row["num_shares"]
+        txn.current_value = row["current_value"]
+        return txn
+
     def get_ticker(self, company_name):
         try:
             yfinance = "https://query2.finance.yahoo.com/v1/finance/search"

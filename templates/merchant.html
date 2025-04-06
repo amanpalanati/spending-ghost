@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ merchant_name }} Details</title>
+</head>
+<body>
+  <h1>{{ merchant_name }} Transactions</h1>
+  
+  {% if transactions|length == 0 %}
+    <p>No transactions for {{ merchant_name }}.</p>
+  {% else %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>Amount</th>
+          <th>Stock Price</th>
+          <th>Shares</th>
+          <th>Current Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for txn in transactions %}
+          <tr>
+            <td>{{ txn.date }}</td>
+            <td>{{ txn.amount }}</td>
+            <td>{{ txn.stock_price }}</td>
+            <td>{{ txn.num_shares }}</td>
+            <td>{{ txn.current_value }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+  
+  <p><a href="{{ url_for('index') }}">Back to Portfolio</a></p>
+</body>
+</html>

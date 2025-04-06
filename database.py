@@ -57,4 +57,9 @@ def load_transactions(user_id):
     ''', (user_id,))
     rows = cur.fetchall()
     conn.close()
-    return rows
+    
+    transactions = []
+    for row in rows:
+        txn = Transaction.from_db_row(dict(row))
+        transactions.append(txn)
+    return transactions
