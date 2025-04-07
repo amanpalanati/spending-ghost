@@ -6,7 +6,7 @@ SpendingGhost is a budgeting tool with a twist—it visualizes how your spending
 ---
 
 ## 🚀 Live Demo
-🌐 https://spending-ghost.onrender.com/login
+🌐 https://spending-ghost.onrender.com/login (might take up to two minutes to load; application is hosted on a free server so startup times are bad)
 
 ---
 
